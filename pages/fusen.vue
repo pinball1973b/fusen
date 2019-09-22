@@ -1,6 +1,28 @@
 <template>
   <section class="section">
-    <div class="columns is-mobile">
+    <div class="input_wrapper">
+      <b-field label="Subject">
+        <b-input
+          v-model="form.title"
+          placeholder="title"
+        ></b-input>
+      </b-field>
+      <b-field label="Description">
+        <b-input
+          v-model="form.description"
+          maxlength="4000"
+          type="textarea"
+          placeholder="description"
+        ></b-input>
+      </b-field>
+      <b-button
+        @click="addCard"
+        type="is-info"
+      >
+        Submit
+      </b-button>
+    </div>
+    <div class="cardWrap">
       <!--
       <card
         title="Free"
@@ -11,25 +33,8 @@
         </a>
       </card>
     -->
-    <div class="input_wrapper">
-      <b-field label="Subject">
-        <b-input v-model="form.title"></b-input>
-      </b-field>
-      <b-field label="Description">
-        <b-input
-          v-model="form.description"
-          maxlength="4000"
-          type="textarea"
-        ></b-input>
-      </b-field>
-      <b-button
-        @click="addCard"
-        type="is-info"
-      >
-        Submit
-      </b-button>
-    </div>
       <card
+        class="fusen_card"
         v-for="(item, index) in items"
         :key="index"
         :title="item.title"
@@ -57,8 +62,7 @@ export default {
   data() {
     return {
       items: [
-        { title: 'Free', description: 'test project'},
-        { title: 'Free', description: 'test project'},
+        { title: 'Free', description: 'test project'}
       ],
       form: {
         title: '',
@@ -78,10 +82,21 @@ export default {
       this.form.description = ''
     },
     removeCard(key) {
-      console.log(key)
       this.items.splice(key,1)
     }
 
   }
 }
 </script>
+<style lang="scss" scoped>
+.cardWrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  .fusen_card {
+    flex-grow: 0;
+    flex-basis: 32%;
+  }
+}
+
+</style>
